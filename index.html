@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Vitrini</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .product-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+        .product-nav button {
+            background-color: #ddd;
+            border: none;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .product-nav button:hover, .product-nav button.active {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .product-nav button:nth-child(1) { background-color: #ff9800; }
+        .product-nav button:nth-child(2) { background-color: #4caf50; }
+        .product-nav button:nth-child(3) { background-color: #2196f3; }
+        .product-nav button:nth-child(4) { background-color: #9c27b0; }
+        .product-info {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .product-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .product-info h2 {
+            margin-bottom: 20px;
+            color: #1a237e;
+            font-size: 2.5em;
+        }
+        .product-info p {
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1a237e;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn:hover {
+            background-color: #3949ab;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="product-nav">
+            <button onclick="showProduct(1)" title="Magnezyum Takviyesi"></button>
+            <button onclick="showProduct(2)" title="Multivitamin Kompleksi"></button>
+            <button onclick="showProduct(3)" title="Omega-3 Balık Yağı"></button>
+            <button onclick="showProduct(4)" title="Probiyotik Karışımı"></button>
+        </nav>
+        <div class="product-info" id="productInfo">
+            <h2>Ürün Adı</h2>
+            <p>Ürün açıklaması burada yer alacak.</p>
+            <a href="#" class="btn">Daha Fazla Bilgi</a>
+            <a href="#" class="btn" onclick="openVideoModal()">Video İzle</a>
+        </div>
+    </div>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeVideoModal()">&times;</span>
+            <iframe width="100%" height="450" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { name: "Magnezyum Takviyesi", description: "Günlük magnezyum ihtiyacınızı karşılamak için özel olarak formüle edilmiş takviye. Kas ve sinir fonksiyonlarını destekler, enerji üretiminde rol oynar.", link: "https://www.infless.com/magnesio", videoId: "K4TOrB7at0Y" },
+            { name: "Multivitamin Kompleksi", description: "Tam spektrum vitamin ve mineral içeren günlük takviye. Bağışıklık sistemini güçlendirir, enerji seviyelerini artırır.", link: "https://www.infless.com/multivitamin", videoId: "K4TOrB7at0Y" },
+            { name: "Omega-3 Balık Yağı", description: "Yüksek kaliteli, saf omega-3 yağ asitleri içeren takviye. Kalp ve beyin sağlığını destekler, enflamasyonu azaltır.", link: "https://www.infless.com/omega3", videoId: "K4TOrB7at0Y" },
+            { name: "Probiyotik Karışımı", description: "Çeşitli faydalı bakteri suşları içeren sindirim sistemi desteği. Bağırsak florasını dengeler, bağışıklığı güçlendirir.", link: "https://www.infless.com/probiyotik", videoId: "K4TOrB7at0Y" }
+        ];
+
+        function showProduct(index) {
+            const product = products[index - 1];
+            document.getElementById('productInfo').innerHTML = `
+                <h2>${product.name}</h2>
+                <p>${product.description}</p>
+                <a href="${product.link}" class="btn" target="_blank">Daha Fazla Bilgi</a>
+                <a href="#" class="btn" onclick="openVideoModal('${product.videoId}')">Video İzle</a>
+            `;
+            // Aktif ürünü vurgula
+            document.querySelectorAll('.product-nav button').forEach((btn, idx) => {
+                btn.style.transform = idx === index - 1 ? 'scale(1.1)' : 'scale(1)';
+            });
+        }
+
+        function openVideoModal(videoId) {
+            const modal = document.getElementById('videoModal');
+            const iframe = modal.querySelector('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            modal.style.display = 'block';
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = modal.querySelector('iframe');
+            iframe.src = '';
+            modal.style.display = 'none';
+        }
+
+        // İlk ürünle başlat
+        showProduct(1);
+    </script>
+</body>
+</html>
