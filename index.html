@@ -23,42 +23,57 @@
             margin-bottom: 50px;
         }
         .product-nav button {
-            background-color: #ddd;
+            background-color: transparent;
             border: none;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+            width: 150px;
+            height: 150px;
             margin: 0 15px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
         }
-        .product-nav button:hover, .product-nav button.active {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        .product-nav button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
         }
-        .product-nav button:nth-child(1) { background-color: #ff9800; }
-        .product-nav button:nth-child(2) { background-color: #4caf50; }
-        .product-nav button:nth-child(3) { background-color: #2196f3; }
-        .product-nav button:nth-child(4) { background-color: #9c27b0; }
+        .product-nav button:hover img, .product-nav button.active img {
+            transform: scale(1.1);
+        }
         .product-info {
+            display: flex;
             background-color: white;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            text-align: center;
             transition: all 0.3s ease;
         }
         .product-info:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
-        .product-info h2 {
+        .product-image {
+            flex: 1;
+            margin-right: 40px;
+        }
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .product-details {
+            flex: 1;
+            text-align: left;
+        }
+        .product-details h2 {
             margin-bottom: 20px;
             color: #1a237e;
             font-size: 2.5em;
         }
-        .product-info p {
+        .product-details p {
             margin-bottom: 30px;
             line-height: 1.8;
             color: #555;
@@ -71,7 +86,7 @@
             padding: 12px 24px;
             text-decoration: none;
             border-radius: 25px;
-            margin: 10px;
+            margin: 10px 10px 10px 0;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -89,42 +104,42 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.9);
         }
         .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
+            position: relative;
+            margin: 5% auto;
             padding: 20px;
-            border-radius: 10px;
             width: 80%;
             max-width: 800px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
+            position: absolute;
+            right: -30px;
+            top: -30px;
+            color: #f1f1f1;
+            font-size: 40px;
             font-weight: bold;
-            cursor: pointer;
+            transition: 0.3s;
         }
-        .close:hover {
-            color: #333;
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <nav class="product-nav">
-            <button onclick="showProduct(1)" title="Magnezyum Takviyesi"></button>
-            <button onclick="showProduct(2)" title="Multivitamin Kompleksi"></button>
-            <button onclick="showProduct(3)" title="Omega-3 Balık Yağı"></button>
-            <button onclick="showProduct(4)" title="Probiyotik Karışımı"></button>
+            <button onclick="showProduct(1)" title="Cocomega"><img src="https://i.ibb.co/867pkcR/1.webp" alt="Cocomega"></button>
+            <button onclick="showProduct(2)" title="DigestaZ"><img src="https://i.ibb.co/YPwyyct/3.webp" alt="DigestaZ"></button>
+            <button onclick="showProduct(3)" title="Magnesio"><img src="https://i.ibb.co/Y3q216W/5.webp" alt="Magnesio"></button>
+            <button onclick="showProduct(4)" title="Regista"><img src="https://i.ibb.co/gy3fGpF/7.webp" alt="Regista"></button>
         </nav>
         <div class="product-info" id="productInfo">
-            <h2>Ürün Adı</h2>
-            <p>Ürün açıklaması burada yer alacak.</p>
-            <a href="#" class="btn">Daha Fazla Bilgi</a>
-            <a href="#" class="btn" onclick="openVideoModal()">Video İzle</a>
+            <!-- Product information will be dynamically inserted here -->
         </div>
     </div>
 
@@ -137,23 +152,52 @@
 
     <script>
         const products = [
-            { name: "Magnezyum Takviyesi", description: "Günlük magnezyum ihtiyacınızı karşılamak için özel olarak formüle edilmiş takviye. Kas ve sinir fonksiyonlarını destekler, enerji üretiminde rol oynar.", link: "https://www.infless.com/magnesio", videoId: "K4TOrB7at0Y" },
-            { name: "Multivitamin Kompleksi", description: "Tam spektrum vitamin ve mineral içeren günlük takviye. Bağışıklık sistemini güçlendirir, enerji seviyelerini artırır.", link: "https://www.infless.com/multivitamin", videoId: "K4TOrB7at0Y" },
-            { name: "Omega-3 Balık Yağı", description: "Yüksek kaliteli, saf omega-3 yağ asitleri içeren takviye. Kalp ve beyin sağlığını destekler, enflamasyonu azaltır.", link: "https://www.infless.com/omega3", videoId: "K4TOrB7at0Y" },
-            { name: "Probiyotik Karışımı", description: "Çeşitli faydalı bakteri suşları içeren sindirim sistemi desteği. Bağırsak florasını dengeler, bağışıklığı güçlendirir.", link: "https://www.infless.com/probiyotik", videoId: "K4TOrB7at0Y" }
+            { 
+                name: "Cocomega", 
+                description: "Cocomega, Omega-3 yağ asitlerinin gücünü hindistan cevizi yağının faydalarıyla birleştiren yenilikçi bir takviyedir. Kalp sağlığını destekler, beyin fonksiyonlarını iyileştirir ve genel sağlığınıza katkıda bulunur.",
+                link: "https://infless.myikas.com/cocomega",
+                videoId: "K4TOrB7at0Y",
+                image: "https://i.ibb.co/KKqbyhw/2.webp"
+            },
+            { 
+                name: "DigestaZ", 
+                description: "DigestaZ, sindirim sisteminizi desteklemek için özel olarak formüle edilmiş bir enzim kompleksidir. Gıdaların daha iyi sindirilmesine yardımcı olur, şişkinliği azaltır ve genel bağırsak sağlığını iyileştirir.",
+                link: "https://infless.myikas.com/digestaz",
+                videoId: "K4TOrB7at0Y",
+                image: "https://i.ibb.co/W335nTs/4.webp"
+            },
+            { 
+                name: "Magnesio", 
+                description: "Magnesio, vücudunuzun magnezyum ihtiyacını karşılamak için tasarlanmış yüksek emilimli bir takviyedir. Kas ve sinir fonksiyonlarını destekler, kemik sağlığını korur ve enerji üretiminde önemli bir rol oynar.",
+                link: "https://infless.myikas.com/magnesio",
+                videoId: "K4TOrB7at0Y",
+                image: "https://i.ibb.co/BPLndXc/6.webp"
+            },
+            { 
+                name: "Regista", 
+                description: "Regista, vücudunuzun doğal detoks süreçlerini desteklemek için formüle edilmiş özel bir karışımdır. Karaciğer sağlığını iyileştirir, toksinlerin atılmasına yardımcı olur ve genel sağlığınızı destekler.",
+                link: "https://infless.myikas.com/regista",
+                videoId: "K4TOrB7at0Y",
+                image: "https://i.ibb.co/824cbLf/8.webp"
+            }
         ];
 
         function showProduct(index) {
             const product = products[index - 1];
             document.getElementById('productInfo').innerHTML = `
-                <h2>${product.name}</h2>
-                <p>${product.description}</p>
-                <a href="${product.link}" class="btn" target="_blank">Daha Fazla Bilgi</a>
-                <a href="#" class="btn" onclick="openVideoModal('${product.videoId}')">Video İzle</a>
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-details">
+                    <h2>${product.name}</h2>
+                    <p>${product.description}</p>
+                    <a href="${product.link}" class="btn" target="_blank">Satın Al</a>
+                    <a href="#" class="btn" onclick="openVideoModal('${product.videoId}')">Video İzle</a>
+                </div>
             `;
             // Aktif ürünü vurgula
             document.querySelectorAll('.product-nav button').forEach((btn, idx) => {
-                btn.style.transform = idx === index - 1 ? 'scale(1.1)' : 'scale(1)';
+                btn.className = idx === index - 1 ? 'active' : '';
             });
         }
 
