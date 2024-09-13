@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ürün Vitrini</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f0f4f8;
@@ -16,7 +17,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
-            height: 920px; /* Adjusted for 1000px iframe */
+            height: 920px;
             display: flex;
             flex-direction: column;
         }
@@ -28,8 +29,8 @@
         .product-nav button {
             background-color: transparent;
             border: none;
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             margin: 0 15px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -40,49 +41,55 @@
         .product-nav button img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             transition: all 0.3s ease;
         }
         .product-nav button.active {
             box-shadow: 0 0 0 4px #1a237e;
+            transform: scale(1.05);
         }
         .product-info {
             display: flex;
             background-color: white;
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             flex-grow: 1;
         }
         .product-image {
             flex: 1;
             margin-right: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .product-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
         }
         .product-details {
             flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: center;
         }
         .product-details h2 {
             margin-bottom: 20px;
             color: #1a237e;
             font-size: 2.5em;
+            font-weight: 600;
         }
         .product-details p {
             margin-bottom: 30px;
             line-height: 1.8;
             color: #555;
             font-size: 1.1em;
-            flex-grow: 1;
+            font-weight: 300;
         }
         .btn-container {
             display: flex;
-            gap: 10px;
+            gap: 15px;
         }
         .btn {
             display: inline-flex;
@@ -92,15 +99,15 @@
             color: white;
             padding: 12px 24px;
             text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
+            border-radius: 50px;
+            font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .btn:hover {
             background-color: #3949ab;
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         .btn img {
             margin-right: 8px;
@@ -145,10 +152,10 @@
 <body>
     <div class="container">
         <nav class="product-nav">
-            <button onclick="showProduct(1)" title="Cocomega"><img src="https://i.ibb.co/D9ZGgXf/1.png" alt="Cocomega"></button>
-            <button onclick="showProduct(2)" title="DigestaZ"><img src="https://i.ibb.co/SRpbPRN/3.png" alt="DigestaZ"></button>
-            <button onclick="showProduct(3)" title="Magnesio"><img src="https://i.ibb.co/cFx8phd/2.png" alt="Magnesio"></button>
-            <button onclick="showProduct(4)" title="Regista"><img src="https://i.ibb.co/6m3NGzL/4.png" alt="Regista"></button>
+            <button onclick="showProduct(1)" title="Cocomega"><img src="https://i.ibb.co/LhdyDP4/1.png" alt="Cocomega"></button>
+            <button onclick="showProduct(2)" title="DigestaZ"><img src="https://i.ibb.co/D7pTVxF/3.png" alt="DigestaZ"></button>
+            <button onclick="showProduct(3)" title="Magnesio"><img src="https://i.ibb.co/56C9QNT/2.png" alt="Magnesio"></button>
+            <button onclick="showProduct(4)" title="Regista"><img src="https://i.ibb.co/BfCWybL/4.png" alt="Regista"></button>
         </nav>
         <div class="product-info" id="productInfo">
             <!-- Product information will be dynamically inserted here -->
